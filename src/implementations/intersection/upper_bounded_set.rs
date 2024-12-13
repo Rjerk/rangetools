@@ -12,7 +12,8 @@ where
     type Output = BoundedSet<T>;
     fn intersection(self, other: R) -> Self::Output {
         let other = other.to_inner();
-        let mut set = RangeIntersection::intersection(self.upper_bounded_range, other).to_set();
+        let mut set =
+            RangeIntersection::intersection(self.upper_bounded_range, other.clone()).to_set();
         set.ranges.retain(|r| !r.is_empty());
         set.add_set(RangeIntersection::intersection(self.ranges, other));
         set

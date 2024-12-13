@@ -36,6 +36,7 @@ impl<T: Copy + Ord> UpperBoundedSet<T> {
                 .ranges
                 .front()
                 .unwrap()
+                .clone()
                 .intersection(self.upper_bounded_range)
                 .is_empty()
             {

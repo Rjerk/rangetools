@@ -61,7 +61,7 @@ impl<T> EmptyRange<T> {
     /// ```
     pub fn new() -> Self {
         Self {
-            t: PhantomData::default(),
+            t: PhantomData,
         }
     }
 

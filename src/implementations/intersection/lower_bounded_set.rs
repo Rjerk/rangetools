@@ -13,7 +13,7 @@ where
     fn intersection(self, other: R) -> Self::Output {
         let other = other.to_inner();
         let mut set: BoundedSet<T> =
-            RangeIntersection::intersection(self.lower_bounded_range, other).into();
+            RangeIntersection::intersection(self.lower_bounded_range, other.clone()).into();
         set.add_set(RangeIntersection::intersection(self.ranges, other));
         set
     }

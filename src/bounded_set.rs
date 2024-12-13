@@ -63,7 +63,11 @@ impl<T> BoundedSet<T> {
 impl<T: Copy + Ord> BoundedSet<T> {
     pub(crate) fn add_range(&mut self, r: BoundedRange<T>) {
         if !r.is_empty() {
-            if let Some(index) = self.ranges.iter().position(|range| range.intersects(r)) {
+            if let Some(index) = self
+                .ranges
+                .iter()
+                .position(|range| range.clone().intersects(r.clone()))
+            {
                 let new_range = r.combine(&self.ranges[index]);
                 self.ranges.remove(index);
                 self.add_range(new_range);
@@ -129,7 +133,7 @@ where
         {
             self.range_iters.pop_front();
         }
-        self.range_iters.front_mut().map(|i| i.next()).flatten()
+        self.range_iters.front_mut().and_then(|i| i.next())
     }
 
     fn size_hint(&self) -> (usize, Option<usize>) {
@@ -156,7 +160,7 @@ where
         {
             self.range_iters.pop_back();
         }
-        self.range_iters.back_mut().map(|i| i.last()).flatten()
+        self.range_iters.back_mut().and_then(|i| i.last())
     }
 
     fn nth(&mut self, mut n: usize) -> Option<Self::Item> {
@@ -168,7 +172,7 @@ where
                 break;
             }
         }
-        self.range_iters.front_mut().map(|i| i.nth(n)).flatten()
+        self.range_iters.front_mut().and_then(|i| i.nth(n))
     }
 
     fn min(mut self) -> Option<Self::Item> {
@@ -193,7 +197,7 @@ where
         {
             self.range_iters.pop_back();
         }
-        self.range_iters.back_mut().map(|i| i.next_back()).flatten()
+        self.range_iters.back_mut().and_then(|i| i.next_back())
     }
 
     fn nth_back(&mut self, mut n: usize) -> Option<Self::Item> {
@@ -205,7 +209,7 @@ where
                 break;
             }
         }
-        self.range_iters.back_mut().map(|i| i.nth_back(n)).flatten()
+        self.range_iters.back_mut().and_then(|i| i.nth_back(n))
     }
 }
 

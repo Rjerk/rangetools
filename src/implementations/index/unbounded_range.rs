@@ -16,7 +16,7 @@ impl std::ops::IndexMut<UnboundedRange> for String {
 impl std::ops::Index<UnboundedRange> for str {
     type Output = str;
     fn index(&self, r: UnboundedRange) -> &Self::Output {
-        &self[std::ops::RangeFull::from(r)]
+        self
     }
 }
 
@@ -49,7 +49,7 @@ impl std::ops::IndexMut<UnboundedRange> for std::ffi::OsString {
 impl<T> std::ops::Index<UnboundedRange> for [T] {
     type Output = [T];
     fn index(&self, r: UnboundedRange) -> &Self::Output {
-        &self[std::ops::RangeFull::from(r)]
+        self
     }
 }
 

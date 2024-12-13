@@ -73,20 +73,20 @@ impl<T: PartialOrd> PartialOrd for LowerBound<T> {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
         match (&self.0, &other.0) {
             (Bound::Included(a), Bound::Included(b)) | (Bound::Excluded(a), Bound::Excluded(b)) => {
-                a.partial_cmp(&b)
+                a.partial_cmp(b)
             }
             (Bound::Included(a), Bound::Excluded(b)) => {
                 if a == b {
                     Some(std::cmp::Ordering::Less)
                 } else {
-                    a.partial_cmp(&b)
+                    a.partial_cmp(b)
                 }
             }
             (Bound::Excluded(a), Bound::Included(b)) => {
                 if a == b {
                     Some(std::cmp::Ordering::Greater)
                 } else {
-                    a.partial_cmp(&b)
+                    a.partial_cmp(b)
                 }
             }
         }
@@ -174,20 +174,20 @@ impl<T: PartialOrd> PartialOrd for UpperBound<T> {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
         match (&self.0, &other.0) {
             (Bound::Included(a), Bound::Included(b)) | (Bound::Excluded(a), Bound::Excluded(b)) => {
-                a.partial_cmp(&b)
+                a.partial_cmp(b)
             }
             (Bound::Included(a), Bound::Excluded(b)) => {
                 if a == b {
                     Some(std::cmp::Ordering::Greater)
                 } else {
-                    a.partial_cmp(&b)
+                    a.partial_cmp(b)
                 }
             }
             (Bound::Excluded(a), Bound::Included(b)) => {
                 if a == b {
                     Some(std::cmp::Ordering::Less)
                 } else {
-                    a.partial_cmp(&b)
+                    a.partial_cmp(b)
                 }
             }
         }

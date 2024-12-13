@@ -20,7 +20,7 @@ use std::iter::FusedIterator;
 /// The range is empty if the start bound is greater than the end bound. Note that a range
 /// with start bound `Bound::Excluded(3)` and end bound `Bound::Excluded(4)` is not considered
 /// empty even though it doesn't contain any values.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct BoundedRange<T> {
     /// The lower bound of the range (can be inclusive or exclusive).
@@ -144,7 +144,7 @@ impl<T: Copy + Ord> BoundedRange<T> {
         if self.is_empty() {
             return other.clone();
         }
-        assert!(self.intersects(*other));
+        assert!(self.clone().intersects(other.clone()));
         BoundedRange::new(
             LowerBound::min(self.start, other.start),
             UpperBound::max(self.end, other.end),

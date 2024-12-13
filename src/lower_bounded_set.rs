@@ -54,6 +54,7 @@ impl<T: Copy + Ord> LowerBoundedSet<T> {
                 .ranges
                 .back()
                 .unwrap()
+                .clone()
                 .intersection(self.lower_bounded_range)
                 .is_empty()
             {

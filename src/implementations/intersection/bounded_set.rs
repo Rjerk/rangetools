@@ -13,7 +13,7 @@ where
     fn intersection(mut self, other: R) -> Self::Output {
         let other = other.to_inner();
         for range in self.ranges.iter_mut() {
-            *range = RangeIntersection::intersection(*range, other);
+            *range = RangeIntersection::intersection(range.clone(), other.clone());
         }
         self.ranges.retain(|r| !r.is_empty());
         self
@@ -29,7 +29,10 @@ where
     fn intersection(self, other: R) -> Self::Output {
         let mut set = BoundedSet::empty();
         for range in self.ranges.iter() {
-            set.add_set(RangeIntersection::intersection(*range, other.clone()));
+            set.add_set(RangeIntersection::intersection(
+                range.clone(),
+                other.clone(),
+            ));
         }
         set
     }
@@ -44,7 +47,7 @@ where
     fn intersection(mut self, other: R) -> Self::Output {
         let other = other.to_inner();
         for range in self.ranges.iter_mut() {
-            *range = RangeIntersection::intersection(*range, other);
+            *range = RangeIntersection::intersection(range.clone(), other);
         }
         self.ranges.retain(|r| !r.is_empty());
         self
@@ -63,7 +66,10 @@ where
             other.clone().to_inner().lower_bounded_range,
         );
         for range in self.ranges.iter() {
-            set.add_set(RangeIntersection::intersection(*range, other.clone()));
+            set.add_set(RangeIntersection::intersection(
+                range.clone(),
+                other.clone(),
+            ));
         }
         set
     }
@@ -78,7 +84,7 @@ where
     fn intersection(mut self, other: R) -> Self::Output {
         let other = other.to_inner();
         for range in self.ranges.iter_mut() {
-            *range = RangeIntersection::intersection(*range, other);
+            *range = RangeIntersection::intersection(range.clone(), other);
         }
         self.ranges.retain(|r| !r.is_empty());
         self
@@ -97,7 +103,10 @@ where
             other.clone().to_inner().upper_bounded_range,
         );
         for range in self.ranges.iter() {
-            set.add_set(RangeIntersection::intersection(*range, other.clone()));
+            set.add_set(RangeIntersection::intersection(
+                range.clone(),
+                other.clone(),
+            ));
         }
         set
     }

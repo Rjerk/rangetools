@@ -51,7 +51,7 @@ impl<T: Copy + Ord> PiecewiseUnboundedSet<T> {
             .ranges
             .ranges
             .iter()
-            .position(|r| self.upper_bounded_range.intersects(*r))
+            .position(|r| self.upper_bounded_range.intersects(r.clone()))
         {
             let range = self.ranges.ranges.remove(index).unwrap();
             self.upper_bounded_range.end = self.upper_bounded_range.end.max(range.end);
@@ -60,7 +60,7 @@ impl<T: Copy + Ord> PiecewiseUnboundedSet<T> {
             .ranges
             .ranges
             .iter()
-            .position(|r| self.lower_bounded_range.intersects(*r))
+            .position(|r| self.lower_bounded_range.intersects(r.clone()))
         {
             let range = self.ranges.ranges.remove(index).unwrap();
             self.lower_bounded_range.start = self.lower_bounded_range.start.min(range.start);
